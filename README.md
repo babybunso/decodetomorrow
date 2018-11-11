@@ -2,6 +2,8 @@
 
 **Team Name:** Digify
 
-**Challenge:** Rainfall Forecasting
+**Challenge:** DecodeTommorw - Rainfall Forecasting
 
-**Short Description:** DMS: A rainfall and dams' water level monitoring system
+**Short Description:** DMS: SNAP Dams Monitoring System
+
+**Long Description:** Monitors SN | Aboitiz Power Dams Rainfalls and Water Level via Weather Station Forecast API
