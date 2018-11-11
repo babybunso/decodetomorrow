@@ -1,0 +1,40 @@
+{
+    "results": [
+      {
+        "image_url": "feed_item_1",
+        "destinationName": "El Nido, Palawan"
+      },
+      {
+        "image_url": "feed_item_2",
+        "destinationName": "Boracay Island, Aklan"
+      },
+      {
+        "image_url": "feed_item_3",
+        "destinationName": "Batanes Island, Batanes"
+      },
+      {
+        "image_url": "feed_item_4",
+        "destinationName": "El Nido, Palawan"
+      },
+      {
+        "image_url": "feed_item_5",
+        "destinationName": "Boracay Island, Aklan"
+      },
+      {
+        "image_url": "feed_item_6",
+        "destinationName": "Batanes Island, Batanes"
+      },
+      {
+        "image_url": "feed_item_7",
+        "destinationName": "Batanes Island, Batanes"
+      },
+      {
+        "image_url": "feed_item_8",
+        "destinationName": "Batanes Island, Batanes"
+      },
+      {
+        "image_url": "feed_item_9",
+        "destinationName": "Batanes Island, Batanes"
+      }
+    ]
+}
