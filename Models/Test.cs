@@ -16,6 +16,8 @@ namespace Digify
             double storageCapacity = 1080000000; // 1.8B mmm
             double minSupply = 160; // masl
             double maxSupply = 193; // masl
+            double observedDamWaterAmount = 108000000;
+
             Reservoir reservoir = new Reservoir(storageCapacity, minSupply, maxSupply);
 
             // STATIONS, FORECASTS
@@ -32,7 +34,7 @@ namespace Digify
             station = new DamStation(980002, "Pamalican (Amanpulo) 2", stationLocation, forecasts); 
             stations.Add(station);
 
-            Dam dam  = new Dam("Magat", damLocation, reservoir, dischargeCap, stations);
+            Dam dam  = new Dam("Magat", damLocation, reservoir, dischargeCap, stations, observedDamWaterAmount);
             dams.Add(1, dam);
 
 
@@ -42,7 +44,8 @@ namespace Digify
             minSupply = 740; // masl
             maxSupply = 752; // masl
             reservoir = new Reservoir(storageCapacity, minSupply, maxSupply);
-            
+            observedDamWaterAmount = 12100000;
+
             // STATIONS, FORECASTS
             forecasts = new List<Forecast>();
             forecast = new Forecast(DateTime.Now.AddHours(2), 28.65,36, 0, 1010.85, 0.2, 25.2, 44, 54, 34, 29, 34);    
@@ -57,7 +60,7 @@ namespace Digify
             station = new DamStation(980004, "Pamalican (Amanpulo) 2", stationLocation, forecasts); 
             stations.Add(station);
 
-            dam  = new Dam("Ambuklao", damLocation, reservoir, dischargeCap, stations);
+            dam  = new Dam("Ambuklao", damLocation, reservoir, dischargeCap, stations, observedDamWaterAmount);
             dams.Add(2, dam);
             
             
@@ -67,6 +70,7 @@ namespace Digify
             minSupply = 757; // masl
             maxSupply = 566; // masl
             reservoir = new Reservoir(storageCapacity, minSupply, maxSupply);
+            observedDamWaterAmount = 22000000;
 
             // STATIONS, FORECASTS
             forecasts = new List<Forecast>();
@@ -82,7 +86,7 @@ namespace Digify
             station = new DamStation(980004, "Pamalican (Amanpulo) 2", stationLocation, forecasts); 
             stations.Add(station);
 
-            dam  = new Dam("Binga", damLocation, reservoir, dischargeCap, stations);
+            dam  = new Dam("Binga", damLocation, reservoir, dischargeCap, stations, observedDamWaterAmount);
             dams.Add(3, dam);
 
 
@@ -106,13 +110,12 @@ namespace Digify
                 foreach (int key in meanWaterLevel.Keys)
                 {
                     Rainfall rainfall = meanWaterLevel[key];
-                    double observedDamWaterAmount = 600;
-                    double waterLevel = rainfall.Amount + observedDamWaterAmount;
+                    double waterLevel = rainfall.Amount + dam.ObservedVolume;
 
                     Console.WriteLine("Station Id: " + key 
                         + ", Timestamp: " + rainfall.DateTime + ", Mean Water Level: " + waterLevel 
                         + ", Interpretation: " + new MeanWaterLevelInterpretation(
-                            dams[damId].Reservoir, waterLevel).Interpret()
+                            dams[damId], waterLevel).Interpret()
                     );
                 }
             }

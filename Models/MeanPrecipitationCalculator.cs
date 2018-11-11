@@ -21,8 +21,7 @@ namespace Digify
         public Dictionary<int, Rainfall> GetWaterLevel(int damId)
         {
             Dam dam = getDam(damId);
-            // return ComputeWaterLevel(dam);
-            return ComputeRainFall(dam); // from mmm to m
+            return ComputeWaterLevel(dam); // from mmm to m
         }
 
         private Dam getDam(int id)
@@ -62,32 +61,50 @@ namespace Digify
                 }
 
                 double meanPrecipitation = rains / rainfalls.Count; 
-                Rainfall newRainfall = new Rainfall(ts, meanPrecipitation);    
+                Rainfall newRainfall = new Rainfall(ts, meanPrecipitation + dam.ObservedVolume);    
                 result.Add(key, newRainfall);       
             }
 
             return result;
         }
 
-        /* 
-        private Dictionary<int, double> ComputeWaterLevel(Dam dam)
+        private Dictionary<int, Rainfall> ComputeWaterLevel(Dam dam)
         {
-            Dictionary<int, double> result = new Dictionary<int, double>();
-            foreach (int key in rainfalls.Keys)
+            Dictionary<int, Rainfall> result = new Dictionary<int, Rainfall>();
+
+            Dictionary<int, List<Rainfall>> stations = new Dictionary<int, List<Rainfall>>();
+            foreach (DamStation station in dam.Stations)
             {
-                Rainfall rainfall = rainfalls[key];
-                double volume = RainfallToVolume(rainfall.Amount);
-                double waterLevel = volume - dam.DischargeCap;
-                result.Add(key, waterLevel);       
+                int id = station.Id;
+                List<Rainfall> rainFalls = new List<Rainfall>();
+
+                foreach (Forecast forecast in station.Forecasts)
+                {
+                    Rainfall rainfall = new Rainfall(forecast.Timestamp, forecast.Rain);
+                    rainFalls.Add(rainfall);
+                }
+
+                stations.Add(id, rainFalls);
             }
+
+            foreach (int key in stations.Keys)
+            {
+                List<Rainfall> rainfalls = stations[key];
+                double rains = 0;
+
+                DateTime ts = new DateTime();
+                foreach (Rainfall rainfall in rainfalls)
+                {   
+                    rains += rainfall.Amount;
+                    ts = rainfall.DateTime;
+                }
+
+                double meanPrecipitation = rains / rainfalls.Count; 
+                Rainfall newRainfall = new Rainfall(ts, meanPrecipitation);    
+                result.Add(key, newRainfall);       
+            }
+
             return result;
         }
-
-        private double RainfallToVolume(double rainAmount)
-        {
-            double volume = rainAmount;
-            return volume;
-        }
-        */
 	}
 }
