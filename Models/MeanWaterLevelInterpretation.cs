@@ -6,21 +6,21 @@ namespace Digify
 	public class MeanWaterLevelInterpretation
 	{
         private double minWaterLevel;
-        private double maxWaterLevel;
-        //private double capacity;
+        private double maxFloodLevel;
+        private double capacity;
         private double waterLevel;
 
-        public MeanWaterLevelInterpretation(Reservoir reservoir, double waterLevel) 
+        public MeanWaterLevelInterpretation(Dam dam, double waterLevel) 
         {
-            this.minWaterLevel = reservoir.MinimumSupplyLevel;
-            this.maxWaterLevel = reservoir.MaximumSupplyLevel;
+            this.minWaterLevel = dam.Reservoir.MinimumSupplyLevel;
+            this.maxFloodLevel = dam.Reservoir.MaximumFloodLevel;
+            this.capacity = dam.Reservoir.StorageCapacity;
             this.waterLevel = waterLevel;
-            //this.capacity = reservoir.StorageCapacity;
         }
 
         public string Weather()
         {
-            return waterLevel + " Meters";
+            return waterLevel + " cubic meters";
         }
 
 
@@ -28,14 +28,12 @@ namespace Digify
         {
             string interpretation = "";
 
-            if (waterLevel >= (maxWaterLevel *1.25))
+            if (waterLevel >= (capacity *1.25))
                 interpretation = "Critical - Above Maximum Water Level";
-            else if (waterLevel > maxWaterLevel * 0.9)
+            else if (waterLevel >= capacity * 0.95)
                 interpretation = "Warning";
-            else if (waterLevel >= minWaterLevel)
-                interpretation = "Normal";
             else
-                interpretation = "Critical - Below Minimum Water Level";
+               interpretation = "Normal";
 
             return interpretation;        
         }
