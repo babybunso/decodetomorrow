@@ -1,4 +1,4 @@
-## Dams Monitoring System (DMS)
+## Dams Monitoring System (DMS SNAP)
 
 **Team Name:** Digify
 
